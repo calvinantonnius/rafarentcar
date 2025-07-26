@@ -104,7 +104,7 @@
     </section>
 
     <!-- Company Profile Section -->
-    <section id="tentang" class="py-20 bg-gradient-to-br from-gray-50 to-white relative overflow-hidden">
+    <section id="tentang" class="py-20 bg-gradient-to-br from-gray-50 to-white relative overflow-hidden px-4 lg:px-8">
         <div class="absolute inset-0 bg-grid-pattern opacity-5"></div>
         <div class="container mx-auto px-4 lg:px-8 relative z-10">
             <div class="grid lg:grid-cols-2 gap-16 items-center">
@@ -136,12 +136,6 @@
                             <div class="text-gray-600 text-sm font-medium">Customer Service</div>
                         </div>
                     </div>
-                    <a href="#kontak" class="inline-flex items-center bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-4 rounded-xl hover:from-blue-700 hover:to-purple-700 transition-all duration-300 font-medium shadow-lg hover:shadow-xl transform hover:-translate-y-1">
-                        <i class="fas fa-info-circle mr-3"></i>Pelajari Lebih Lanjut
-                    </a>
-                    <a href="#mobil" class="inline-flex items-center bg-white text-blue-600 border border-blue-600 px-6 py-3 rounded-lg hover:bg-blue-50 transition duration-300 font-medium">
-                        <i class="fas fa-car mr-2"></i>Lihat Mobil
-                    </a>
                 </div>
                 <div class="order-1 lg:order-2">
                     <div class="relative group">
@@ -163,7 +157,7 @@
 </section>
 
     <!-- Car Grid Section -->
-    <section id="mobil" class="py-20 bg-gradient-to-br from-gray-100 to-gray-50 relative overflow-hidden">
+    <section id="mobil" class="py-20 bg-gradient-to-br from-gray-100 to-gray-50 relative overflow-hidden px-4 lg:px-8">
         <div class="absolute inset-0 bg-dots-pattern opacity-10"></div>
         <div class="container mx-auto px-4 lg:px-8 relative z-10">
             <div class="text-center mb-16">
@@ -359,9 +353,9 @@
 @endsection
 
 @push('styles')
-<link rel="stylesheet" href="{{ asset('css/modern-hero.css') }}">
+<link rel="stylesheet" href="{{ asset('css/style.css') }}">
 @endpush
 
 @push('scripts')
-<script src="{{ asset('js/modern-hero.js') }}"></script>
+<script src="{{ asset('js/script.js') }}"></script>
 @endpush
