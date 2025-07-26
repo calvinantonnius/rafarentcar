@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'RafaRentCar')
+@section('title', 'RafaRentCar - Rental Mobil Terbaik')
 @section('content')
 
     <!-- Hero Section with Auto Slide Banner -->
@@ -139,6 +139,9 @@
                     <a href="#kontak" class="inline-flex items-center bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-4 rounded-xl hover:from-blue-700 hover:to-purple-700 transition-all duration-300 font-medium shadow-lg hover:shadow-xl transform hover:-translate-y-1">
                         <i class="fas fa-info-circle mr-3"></i>Pelajari Lebih Lanjut
                     </a>
+                    <a href="#mobil" class="inline-flex items-center bg-white text-blue-600 border border-blue-600 px-6 py-3 rounded-lg hover:bg-blue-50 transition duration-300 font-medium">
+                        <i class="fas fa-car mr-2"></i>Lihat Mobil
+                    </a>
                 </div>
                 <div class="order-1 lg:order-2">
                     <div class="relative group">
@@ -156,7 +159,8 @@
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
     <!-- Car Grid Section -->
     <section id="mobil" class="py-20 bg-gradient-to-br from-gray-100 to-gray-50 relative overflow-hidden">
@@ -199,6 +203,9 @@
                                 Sewa Sekarang
                             </button>
                         </div>
+                        <button class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300 text-sm font-medium">
+                            Klaim Promo
+                        </button>
                     </div>
                 </div>
                 
@@ -335,6 +342,9 @@
                                 Sewa Sekarang
                             </button>
                         </div>
+                        <button class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300 text-sm font-medium">
+                            Klaim Promo
+                        </button>
                     </div>
                 </div>
             </div>
