@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'RafaRentCar - Rental Mobil Terpercaya')</title>
     <meta name="description" content="@yield('description', 'RafaRentCar menyediakan layanan rental mobil terpercaya dengan berbagai pilihan kendaraan berkualitas.')">
-    
+
     <!-- Tailwind CSS - PASTIKAN INI LOAD PERTAMA -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     
@@ -17,7 +17,10 @@
     
     <!-- Custom CSS - LOAD SETELAH TAILWIND -->
     <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
-    
+
+    <!-- Tambahkan ini agar CSS tambahan dari @push('styles') bisa muncul -->
+    @stack('styles')
+
     <style>
         /* Reset untuk memastikan tidak ada conflict */
         * {
@@ -25,18 +28,18 @@
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
             font-family: 'Inter', sans-serif;
             line-height: 1.6;
         }
-        
+
         /* Fix untuk overlapping text */
         .hero-text {
             position: relative;
             z-index: 10;
         }
-        
+
         /* Pastikan gradient background */
         .hero-gradient {
             background: linear-gradient(135deg, #1e40af 0%, #7c3aed 100%);
@@ -57,7 +60,8 @@
 
     <!-- Custom JavaScript -->
     <script src="{{ asset('js/custom.js') }}"></script>
-    
+
+    <!-- Tambahkan ini agar script tambahan dari @push('scripts') bisa muncul -->
     @stack('scripts')
 </body>
 </html>

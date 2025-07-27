@@ -1,454 +1,379 @@
-/* public/css/about.css */
+/* ======================================
+   ABOUT SECTION STYLES
+   ====================================== */
 
-/* General Styles */
-.about-page {
-    font-family: 'Poppins', sans-serif;
-    line-height: 1.6;
-    color: #333;
+/* About Background Pattern */
+.about-bg-pattern {
+    background-image: radial-gradient(circle at 1px 1px, rgba(0,0,0,0.15) 1px, transparent 0);
+    background-size: 20px 20px;
 }
 
-/* Hero Section */
-.hero-about {
-    height: 60vh;
-    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.4)), 
-                url('/images/about-hero.jpg') center/cover;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+/* About Content Animations */
+.about-content {
+    animation: aboutFadeInLeft 1s ease-out;
+}
+
+@keyframes aboutFadeInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* About Image Container Animations */
+.about-image-container {
+    animation: aboutFadeInRight 1s ease-out;
+}
+
+@keyframes aboutFadeInRight {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* About Badge Animation */
+.about-badge {
+    animation: aboutBadgeFloat 3s ease-in-out infinite;
+}
+
+@keyframes aboutBadgeFloat {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-5px);
+    }
+}
+
+/* About Title Animation */
+.about-title {
+    animation: aboutTitleSlideUp 0.8s ease-out 0.2s both;
+}
+
+@keyframes aboutTitleSlideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* About Highlight Text */
+.about-highlight {
+    background-clip: text;
+    -webkit-background-clip: text;
+}
+
+/* About Description Animation */
+.about-description {
+    animation: aboutDescriptionFade 0.8s ease-out 0.4s both;
+}
+
+@keyframes aboutDescriptionFade {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* About Statistics Animations */
+.about-stats {
+    animation: aboutStatsSlideUp 0.8s ease-out 0.6s both;
+}
+
+@keyframes aboutStatsSlideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.about-stat-item {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: translateY(0);
+}
+
+.about-stat-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+.about-stat-number {
+    background-clip: text;
+    -webkit-background-clip: text;
+    animation: aboutNumberCounter 0.8s ease-out;
+}
+
+@keyframes aboutNumberCounter {
+    from {
+        opacity: 0;
+        transform: scale(0.5);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* About Features Animations */
+.about-features {
+    animation: aboutFeaturesSlideUp 0.8s ease-out 0.8s both;
+}
+
+@keyframes aboutFeaturesSlideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.about-feature-item {
+    transition: all 0.3s ease;
+    transform: translateX(0);
+}
+
+.about-feature-item:hover {
+    transform: translateX(10px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.about-feature-icon {
+    transition: all 0.3s ease;
+}
+
+.about-feature-item:hover .about-feature-icon {
+    transform: scale(1.1) rotate(5deg);
+}
+
+/* About Button */
+.about-btn {
     position: relative;
     overflow: hidden;
+    transition: all 0.3s ease;
 }
 
-.hero-overlay {
+.about-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+}
+
+.about-btn::before {
+    content: '';
     position: absolute;
+    top: 0;
+    left: -100%;
     width: 100%;
     height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
 }
 
-.hero-content {
-    text-align: center;
-    color: white;
-    z-index: 2;
+.about-btn:hover::before {
+    left: 100%;
 }
 
-.hero-title {
-    font-size: 3.5rem;
-    font-weight: 700;
-    margin-bottom: 1rem;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-}
-
-.hero-subtitle {
-    font-size: 1.2rem;
-    font-weight: 300;
-    opacity: 0.9;
-}
-
-/* Company Info Section */
-.company-info {
-    padding: 80px 0;
-    background: #f8f9fa;
-}
-
-.info-content h2 {
-    font-size: 2.5rem;
-    font-weight: 600;
-    color: #2c3e50;
-    margin-bottom: 2rem;
-}
-
-.info-content p {
-    font-size: 1.1rem;
-    color: #555;
-    margin-bottom: 1.5rem;
-    text-align: justify;
-}
-
-.info-image img {
-    border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-    transition: transform 0.3s ease;
-}
-
-.info-image img:hover {
-    transform: translateY(-5px);
-}
-
-/* Vision Mission Section */
-.vision-mission {
-    padding: 80px 0;
-    background: white;
-}
-
-.section-header h2 {
-    font-size: 2.5rem;
-    font-weight: 600;
-    color: #2c3e50;
-    margin-bottom: 3rem;
-}
-
-.vm-card {
-    background: white;
-    padding: 3rem 2rem;
-    border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-    text-align: center;
-    height: 100%;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    margin-bottom: 2rem;
-}
-
-.vm-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-}
-
-.vm-icon {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 2rem;
-    font-size: 2rem;
-    color: white;
-}
-
-.vision-card .vm-icon {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-}
-
-.mission-card .vm-icon {
-    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-}
-
-.vm-card h3 {
-    font-size: 1.8rem;
-    font-weight: 600;
-    margin-bottom: 1.5rem;
-    color: #2c3e50;
-}
-
-.vm-card p {
-    font-size: 1.1rem;
-    color: #666;
-    line-height: 1.7;
-}
-
-.vm-card ul {
-    text-align: left;
-    padding-left: 0;
-    list-style: none;
-}
-
-.vm-card li {
-    padding: 0.5rem 0;
+/* About Image Wrapper */
+.about-image-wrapper {
     position: relative;
-    padding-left: 2rem;
-    color: #666;
+    transition: all 0.5s ease;
 }
 
-.vm-card li:before {
-    content: '✓';
-    position: absolute;
-    left: 0;
-    color: #28a745;
-    font-weight: bold;
+.about-main-image {
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Services Overview */
-.services-overview {
-    padding: 80px 0;
-    background: #f8f9fa;
-}
-
-.service-card {
-    background: white;
-    padding: 3rem 2rem;
-    border-radius: 15px;
-    text-align: center;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    height: 100%;
-    margin-bottom: 2rem;
-}
-
-.service-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 35px rgba(0,0,0,0.15);
-}
-
-.service-icon {
-    width: 70px;
-    height: 70px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 1.5rem;
-    color: white;
-    font-size: 1.5rem;
-}
-
-.service-card h4 {
-    font-size: 1.4rem;
-    font-weight: 600;
-    margin-bottom: 1rem;
-    color: #2c3e50;
-}
-
-.service-card p {
-    color: #666;
-    font-size: 1rem;
-}
-
-/* Team Section */
-.team-section {
-    padding: 80px 0;
-    background: white;
-}
-
-.team-card {
-    background: white;
-    border-radius: 15px;
-    overflow: hidden;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    margin-bottom: 2rem;
-}
-
-.team-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-}
-
-.team-image {
-    height: 250px;
-    overflow: hidden;
-}
-
-.team-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.3s ease;
-}
-
-.team-card:hover .team-image img {
+.about-image-wrapper:hover .about-main-image {
     transform: scale(1.05);
 }
 
-.team-info {
-    padding: 2rem;
-    text-align: center;
+/* About Experience Badge */
+.about-experience-badge {
+    animation: aboutBadgeSlideIn 1s ease-out 1s both;
 }
 
-.team-info h4 {
-    font-size: 1.3rem;
-    font-weight: 600;
-    color: #2c3e50;
-    margin-bottom: 0.5rem;
+@keyframes aboutBadgeSlideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-30px) translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0) translateY(0);
+    }
 }
 
-.position {
-    color: #667eea;
-    font-weight: 500;
-    margin-bottom: 1rem;
+/* About Floating Icon */
+.about-floating-icon {
+    animation: aboutIconFloat 4s ease-in-out infinite;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
 }
 
-.description {
-    color: #666;
-    font-size: 0.95rem;
+@keyframes aboutIconFloat {
+    0%, 100% {
+        transform: translateY(0) rotate(0deg);
+    }
+    25% {
+        transform: translateY(-10px) rotate(5deg);
+    }
+    75% {
+        transform: translateY(-5px) rotate(-5deg);
+    }
 }
 
-/* Statistics Section */
-.statistics {
-    padding: 60px 0;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
+/* About Decorative Elements */
+.about-decoration-1,
+.about-decoration-2 {
+    animation: aboutDecorationFloat 6s ease-in-out infinite;
 }
 
-.stat-card {
-    text-align: center;
-    padding: 2rem 1rem;
+.about-decoration-2 {
+    animation-delay: -3s;
 }
 
-.stat-number {
-    font-size: 3rem;
-    font-weight: 700;
-    margin-bottom: 0.5rem;
-    display: block;
+@keyframes aboutDecorationFloat {
+    0%, 100% {
+        transform: translateY(0) scale(1);
+    }
+    50% {
+        transform: translateY(-20px) scale(1.1);
+    }
 }
 
-.stat-label {
-    font-size: 1.1rem;
-    opacity: 0.9;
+/* About Values Section */
+.about-values {
+    animation: aboutValuesSlideUp 0.8s ease-out 1.2s both;
 }
 
-/* Contact CTA Section */
-.contact-cta {
-    padding: 80px 0;
-    background: #f8f9fa;
+@keyframes aboutValuesSlideUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
-.cta-content h2 {
-    font-size: 2.5rem;
-    font-weight: 600;
-    color: #2c3e50;
-    margin-bottom: 1rem;
+.about-value-item {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: translateY(0);
 }
 
-.cta-content p {
-    font-size: 1.2rem;
-    color: #666;
-    margin-bottom: 2rem;
+.about-value-item:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
 }
 
-.cta-buttons {
-    display: flex;
-    gap: 1rem;
-    justify-content: center;
-    flex-wrap: wrap;
-}
-
-.btn {
-    padding: 15px 30px;
-    border-radius: 50px;
-    font-weight: 600;
-    text-decoration: none;
-    display: inline-block;
+.about-value-icon {
     transition: all 0.3s ease;
-    border: 2px solid transparent;
 }
 
-.btn-primary {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
+.about-value-item:hover .about-value-icon {
+    transform: scale(1.1);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
 }
 
-.btn-primary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+/* About Backdrop Blur */
+.backdrop-blur-sm {
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
 }
 
-.btn-outline {
-    border: 2px solid #667eea;
-    color: #667eea;
-    background: transparent;
-}
-
-.btn-outline:hover {
-    background: #667eea;
-    color: white;
-    transform: translateY(-2px);
-}
-
-/* Animation Classes */
-.fade-in {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: all 0.8s ease;
-}
-
-.fade-in.animated {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-.slide-in-left {
-    opacity: 0;
-    transform: translateX(-50px);
-    transition: all 0.8s ease;
-}
-
-.slide-in-left.animated {
-    opacity: 1;
-    transform: translateX(0);
-}
-
-.slide-in-right {
-    opacity: 0;
-    transform: translateX(50px);
-    transition: all 0.8s ease;
-}
-
-.slide-in-right.animated {
-    opacity: 1;
-    transform: translateX(0);
-}
-
-.slide-up {
-    opacity: 0;
-    transform: translateY(50px);
-    transition: all 0.8s ease;
-}
-
-.slide-up.animated {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-/* Responsive Design */
+/* About Mobile Responsive */
 @media (max-width: 768px) {
-    .hero-title {
+    .about-title {
         font-size: 2.5rem;
+        line-height: 1.2;
     }
     
-    .hero-subtitle {
+    .about-description {
         font-size: 1rem;
-    }
-    
-    .section-header h2,
-    .info-content h2,
-    .cta-content h2 {
-        font-size: 2rem;
-    }
-    
-    .vm-card,
-    .service-card,
-    .team-card {
         margin-bottom: 2rem;
     }
     
-    .stat-number {
-        font-size: 2.5rem;
+    .about-stats {
+        gap: 1rem;
     }
     
-    .cta-buttons {
-        flex-direction: column;
-        align-items: center;
+    .about-stat-item {
+        padding: 1rem;
     }
     
-    .btn {
-        width: 200px;
-        text-align: center;
+    .about-experience-badge {
+        padding: 1.5rem;
+        bottom: -2rem;
+        left: -2rem;
+    }
+    
+    .about-floating-icon {
+        width: 60px;
+        height: 60px;
     }
 }
 
-@media (max-width: 576px) {
-    .hero-about {
-        height: 50vh;
-    }
-    
-    .hero-title {
+@media (max-width: 480px) {
+    .about-title {
         font-size: 2rem;
     }
     
-    .company-info,
-    .vision-mission,
-    .services-overview,
-    .team-section,
-    .contact-cta {
-        padding: 60px 0;
+    .about-content {
+        padding: 0 1rem;
     }
     
-    .vm-card,
-    .service-card {
-        padding: 2rem 1.5rem;
+    .about-stats {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .about-feature-item {
+        flex-direction: column;
+        text-align: center;
+        gap: 1rem;
     }
 }
+
+/* About Performance Optimizations */
+.about-content,
+.about-image-container {
+    contain: layout;
+}
+
+.about-main-image {
+    will-change: transform;
+}
+
+.about-stat-item,
+.about-feature-item,
+.about-value-item {
+    will-change: transform;
+}
+
+/* ======================================
+   END ABOUT SECTION STYLES
+   ====================================== */

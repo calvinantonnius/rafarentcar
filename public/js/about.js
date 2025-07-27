@@ -1,270 +1,376 @@
-// public/js/about.js
+/* ======================================
+   ABOUT SECTION JAVASCRIPT
+   ====================================== */
 
 document.addEventListener('DOMContentLoaded', function() {
-    // Initialize animations
-    initScrollAnimations();
-    initCounterAnimations();
-    initParallaxEffect();
-});
+    // About elements
+    const aboutSection = document.getElementById('about');
+    const aboutStatItems = document.querySelectorAll('.about-stat-item');
+    const aboutFeatureItems = document.querySelectorAll('.about-feature-item');
+    const aboutValueItems = document.querySelectorAll('.about-value-item');
+    const aboutStatNumbers = document.querySelectorAll('.about-stat-number');
+    const aboutBtn = document.querySelector('.about-btn');
 
-// Scroll-triggered animations
-function initScrollAnimations() {
-    const observerOptions = {
-        threshold: 0.1,
+    /**
+     * About Intersection Observer for animations
+     */
+    const aboutObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('about-animate-in');
+                
+                // Trigger about counter animation if it's a stat number
+                if (entry.target.classList.contains('about-stat-number')) {
+                    aboutAnimateCounter(entry.target);
+                }
+            }
+        });
+    }, {
+        threshold: 0.3,
         rootMargin: '0px 0px -50px 0px'
-    };
+    });
 
-    const observer = new IntersectionObserver(function(entries, observer) {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('animated');
-                observer.unobserve(entry.target);
-            }
-        });
-    }, observerOptions);
-
-    // Observe elements with animation classes
-    const animatedElements = document.querySelectorAll(
-        '.fade-in, .slide-in-left, .slide-in-right, .slide-up'
-    );
+    // Observe about elements
+    if (aboutSection) {
+        aboutObserver.observe(aboutSection);
+    }
     
-    animatedElements.forEach(element => {
-        observer.observe(element);
+    aboutStatNumbers.forEach(stat => {
+        aboutObserver.observe(stat);
     });
-}
 
-// Counter animation for statistics
-function initCounterAnimations() {
-    const counters = document.querySelectorAll('.stat-number');
-    const speed = 200; // Animation speed
+    /**
+     * About counter animation
+     * @param {Element} element - Element containing the number to animate
+     */
+    function aboutAnimateCounter(element) {
+        const finalNumber = element.textContent;
+        const numericValue = parseInt(finalNumber.replace(/\D/g, ''));
+        const suffix = finalNumber.replace(/[\d.]/g, '');
+        const duration = 2000; // 2 seconds
+        const steps = 60;
+        const increment = numericValue / steps;
+        const stepDuration = duration / steps;
+        
+        let currentNumber = 0;
+        element.textContent = '0' + suffix;
 
-    const counterObserver = new IntersectionObserver(function(entries, observer) {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const counter = entry.target;
-                const target = parseInt(counter.getAttribute('data-count'));
-                let count = 0;
-                
-                const updateCount = () => {
-                    const increment = target / speed;
-                    
-                    if (count < target) {
-                        count += increment;
-                        counter.textContent = Math.ceil(count);
-                        setTimeout(updateCount, 1);
-                    } else {
-                        counter.textContent = target;
-                    }
-                };
-                
-                updateCount();
-                observer.unobserve(counter);
+        const aboutTimer = setInterval(() => {
+            currentNumber += increment;
+            if (currentNumber >= numericValue) {
+                currentNumber = numericValue;
+                clearInterval(aboutTimer);
             }
+            
+            if (suffix.includes('.')) {
+                element.textContent = currentNumber.toFixed(1) + suffix.replace(/[\d.]/g, '');
+            } else {
+                element.textContent = Math.floor(currentNumber) + suffix;
+            }
+        }, stepDuration);
+    }
+
+    /**
+     * About stat items hover effects
+     */
+    aboutStatItems.forEach((item, index) => {
+        item.addEventListener('mouseenter', () => {
+            aboutAddHoverEffect(item, 'about-stat-hover');
+            
+            // Add stagger effect to other items
+            aboutStatItems.forEach((otherItem, otherIndex) => {
+                if (otherIndex !== index) {
+                    otherItem.style.transform = 'scale(0.95)';
+                    otherItem.style.opacity = '0.7';
+                }
+            });
         });
-    }, { threshold: 0.5 });
 
-    counters.forEach(counter => {
-        counterObserver.observe(counter);
+        item.addEventListener('mouseleave', () => {
+            aboutRemoveHoverEffect(item, 'about-stat-hover');
+            
+            // Reset other items
+            aboutStatItems.forEach(otherItem => {
+                otherItem.style.transform = 'scale(1)';
+                otherItem.style.opacity = '1';
+            });
+        });
     });
-}
 
-// Parallax effect for hero section
-function initParallaxEffect() {
-    const hero = document.querySelector('.hero-about');
-    if (!hero) return;
-
-    window.addEventListener('scroll', function() {
-        const scrolled = window.pageYOffset;
-        const parallax = scrolled * 0.5;
+    /**
+     * About feature items animations
+     */
+    aboutFeatureItems.forEach((item, index) => {
+        // Stagger animation on scroll
+        item.style.animationDelay = `${index * 0.1}s`;
         
-        hero.style.transform = `translateY(${parallax}px)`;
+        item.addEventListener('mouseenter', () => {
+            aboutAddPulseEffect(item.querySelector('.about-feature-icon'));
+        });
+
+        item.addEventListener('mouseleave', () => {
+            aboutRemovePulseEffect(item.querySelector('.about-feature-icon'));
+        });
     });
-}
 
-// Smooth scrolling for internal links
-document.addEventListener('click', function(e) {
-    if (e.target.matches('a[href^="#"]')) {
-        e.preventDefault();
+    /**
+     * About value items animations
+     */
+    aboutValueItems.forEach((item, index) => {
+        // Stagger animation on scroll
+        item.style.animationDelay = `${index * 0.2}s`;
         
-        const targetId = e.target.getAttribute('href');
-        const targetSection = document.querySelector(targetId);
-        
-        if (targetSection) {
-            targetSection.scrollIntoView({
+        item.addEventListener('mouseenter', () => {
+            aboutAddFloatEffect(item);
+            aboutAddGlowEffect(item.querySelector('.about-value-icon'));
+        });
+
+        item.addEventListener('mouseleave', () => {
+            aboutRemoveFloatEffect(item);
+            aboutRemoveGlowEffect(item.querySelector('.about-value-icon'));
+        });
+    });
+
+    /**
+     * About button effects
+     */
+    if (aboutBtn) {
+        aboutBtn.addEventListener('click', function(e) {
+            const href = this.getAttribute('href');
+            if (href && href.startsWith('#')) {
+                e.preventDefault();
+                aboutSmoothScrollTo(href);
+            }
+            
+            // Add about button click effect
+            aboutAddClickEffect(this);
+        });
+
+        aboutBtn.addEventListener('mouseenter', () => {
+            aboutAddButtonHoverEffect(aboutBtn);
+        });
+
+        aboutBtn.addEventListener('mouseleave', () => {
+            aboutRemoveButtonHoverEffect(aboutBtn);
+        });
+    }
+
+    /**
+     * About utility functions
+     */
+    function aboutAddHoverEffect(element, className) {
+        element.classList.add(className);
+        element.style.transform = 'translateY(-10px) scale(1.05)';
+        element.style.boxShadow = '0 25px 50px -12px rgba(0, 0, 0, 0.25)';
+    }
+
+    function aboutRemoveHoverEffect(element, className) {
+        element.classList.remove(className);
+        element.style.transform = '';
+        element.style.boxShadow = '';
+    }
+
+    function aboutAddPulseEffect(element) {
+        if (element) {
+            element.style.animation = 'aboutIconPulse 0.6s ease-in-out';
+        }
+    }
+
+    function aboutRemovePulseEffect(element) {
+        if (element) {
+            element.style.animation = '';
+        }
+    }
+
+    function aboutAddFloatEffect(element) {
+        element.style.transform = 'translateY(-12px) scale(1.02)';
+        element.style.transition = 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
+    }
+
+    function aboutRemoveFloatEffect(element) {
+        element.style.transform = '';
+    }
+
+    function aboutAddGlowEffect(element) {
+        if (element) {
+            element.style.boxShadow = '0 0 30px rgba(59, 130, 246, 0.5)';
+            element.style.transform = 'scale(1.1)';
+        }
+    }
+
+    function aboutRemoveGlowEffect(element) {
+        if (element) {
+            element.style.boxShadow = '';
+            element.style.transform = '';
+        }
+    }
+
+    function aboutAddButtonHoverEffect(button) {
+        button.style.transform = 'translateY(-3px) scale(1.05)';
+        button.style.boxShadow = '0 20px 40px rgba(0, 0, 0, 0.15)';
+    }
+
+    function aboutRemoveButtonHoverEffect(button) {
+        button.style.transform = '';
+        button.style.boxShadow = '';
+    }
+
+    function aboutAddClickEffect(button) {
+        button.style.transform = 'scale(0.95)';
+        setTimeout(() => {
+            button.style.transform = '';
+        }, 150);
+    }
+
+    function aboutSmoothScrollTo(target) {
+        const element = document.querySelector(target);
+        if (element) {
+            element.scrollIntoView({
                 behavior: 'smooth',
                 block: 'start'
             });
         }
     }
-});
 
-// Card hover effects enhancement
-function initCardEffects() {
-    const cards = document.querySelectorAll('.vm-card, .service-card, .team-card');
-    
-    cards.forEach(card => {
-        card.addEventListener('mouseenter', function() {
-            this.style.transform = 'translateY(-10px) scale(1.02)';
-        });
+    /**
+     * About parallax effect for decorative elements
+     */
+    function aboutHandleParallax() {
+        const scrolled = window.pageYOffset;
+        const aboutDecorations = document.querySelectorAll('.about-decoration-1, .about-decoration-2');
         
-        card.addEventListener('mouseleave', function() {
-            this.style.transform = 'translateY(0) scale(1)';
+        aboutDecorations.forEach((decoration, index) => {
+            const speed = (index + 1) * 0.5;
+            const yPos = -(scrolled * speed);
+            decoration.style.transform = `translateY(${yPos}px) scale(${1 + scrolled * 0.0001})`;
         });
-    });
-}
+    }
 
-// Initialize card effects
-initCardEffects();
-
-// Loading animation for images
-function initImageLoading() {
-    const images = document.querySelectorAll('img');
-    
-    images.forEach(img => {
-        img.addEventListener('load', function() {
-            this.style.opacity = '1';
-        });
-        
-        // If image is already loaded
-        if (img.complete) {
-            img.style.opacity = '1';
-        } else {
-            img.style.opacity = '0';
-            img.style.transition = 'opacity 0.3s ease';
+    /**
+     * About scroll event with throttling
+     */
+    let aboutScrollTimeout;
+    window.addEventListener('scroll', () => {
+        if (!aboutScrollTimeout) {
+            aboutScrollTimeout = setTimeout(() => {
+                aboutHandleParallax();
+                aboutScrollTimeout = null;
+            }, 16); // ~60fps
         }
     });
-}
 
-// Initialize image loading
-initImageLoading();
-
-// Stagger animation for team cards
-function initStaggerAnimation() {
-    const teamCards = document.querySelectorAll('.team-card');
-    const serviceCards = document.querySelectorAll('.service-card');
-    
-    const staggerObserver = new IntersectionObserver(function(entries) {
+    /**
+     * About image lazy loading
+     */
+    const aboutImages = document.querySelectorAll('.about-main-image');
+    const aboutImageObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                const cards = entry.target.querySelectorAll('.team-card, .service-card');
-                
-                cards.forEach((card, index) => {
-                    setTimeout(() => {
-                        card.classList.add('animated');
-                    }, index * 200);
-                });
-                
-                staggerObserver.unobserve(entry.target);
+                const img = entry.target;
+                if (img.dataset.src) {
+                    img.src = img.dataset.src;
+                    img.removeAttribute('data-src');
+                }
+                aboutImageObserver.unobserve(img);
             }
         });
-    }, { threshold: 0.1 });
-    
-    // Observe parent containers
-    const teamSection = document.querySelector('.team-section .row');
-    const servicesSection = document.querySelector('.services-overview .row');
-    
-    if (teamSection) staggerObserver.observe(teamSection);
-    if (servicesSection) staggerObserver.observe(servicesSection);
-}
-
-// Initialize stagger animation
-initStaggerAnimation();
-
-// Button click effects
-function initButtonEffects() {
-    const buttons = document.querySelectorAll('.btn');
-    
-    buttons.forEach(button => {
-        button.addEventListener('click', function(e) {
-            // Create ripple effect
-            const ripple = document.createElement('span');
-            const rect = this.getBoundingClientRect();
-            const size = Math.max(rect.width, rect.height);
-            const x = e.clientX - rect.left - size / 2;
-            const y = e.clientY - rect.top - size / 2;
-            
-            ripple.style.width = ripple.style.height = size + 'px';
-            ripple.style.left = x + 'px';
-            ripple.style.top = y + 'px';
-            ripple.classList.add('ripple');
-            
-            this.appendChild(ripple);
-            
-            setTimeout(() => {
-                ripple.remove();
-            }, 600);
-        });
     });
-}
 
-// Add ripple CSS
-const rippleCSS = `
-.btn {
-    position: relative;
-    overflow: hidden;
-}
+    aboutImages.forEach(img => {
+        aboutImageObserver.observe(img);
+    });
 
-.ripple {
-    position: absolute;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.3);
-    transform: scale(0);
-    animation: ripple-animation 0.6s linear;
-    pointer-events: none;
-}
+    /**
+     * About resize handler
+     */
+    let aboutResizeTimeout;
+    window.addEventListener('resize', () => {
+        clearTimeout(aboutResizeTimeout);
+        aboutResizeTimeout = setTimeout(() => {
+            aboutHandleResize();
+        }, 250);
+    });
 
-@keyframes ripple-animation {
-    to {
-        transform: scale(4);
-        opacity: 0;
-    }
-}
-`;
-
-// Inject ripple CSS
-const style = document.createElement('style');
-style.textContent = rippleCSS;
-document.head.appendChild(style);
-
-// Initialize button effects
-initButtonEffects();
-
-// Navbar scroll effect (if navbar exists)
-function initNavbarEffect() {
-    const navbar = document.querySelector('.navbar');
-    if (!navbar) return;
-    
-    window.addEventListener('scroll', function() {
-        if (window.scrollY > 100) {
-            navbar.classList.add('navbar-scrolled');
-        } else {
-            navbar.classList.remove('navbar-scrolled');
+    function aboutHandleResize() {
+        // Reset any fixed positions or calculations on resize
+        const isMobile = window.innerWidth < 768;
+        
+        if (isMobile) {
+            // Mobile-specific adjustments
+            aboutStatItems.forEach(item => {
+                item.style.transform = '';
+                item.style.opacity = '';
+            });
         }
-    });
-}
+    }
 
-// Initialize navbar effect
-initNavbarEffect();
+    // Add about CSS animations
+    const aboutAnimationStyles = `
+        @keyframes aboutIconPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+        
+        .about-animate-in {
+            animation: aboutSlideInUp 0.8s ease-out forwards;
+        }
+        
+        @keyframes aboutSlideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    `;
 
-// Performance optimization: Debounce scroll events
-function debounce(func, wait, immediate) {
-    let timeout;
-    return function executedFunction() {
-        const context = this;
-        const args = arguments;
-        
-        const later = function() {
-            timeout = null;
-            if (!immediate) func.apply(context, args);
-        };
-        
-        const callNow = immediate && !timeout;
-        clearTimeout(timeout);
-        timeout = setTimeout(later, wait);
-        
-        if (callNow) func.apply(context, args);
-    };
-}
+    // Inject about animation styles
+    const aboutStyleSheet = document.createElement('style');
+    aboutStyleSheet.textContent = aboutAnimationStyles;
+    document.head.appendChild(aboutStyleSheet);
 
-// Optimize scroll events
-const optimizedParallax = debounce
+    /**
+     * About performance monitoring
+     */
+    if ('IntersectionObserver' in window) {
+        console.log('About section: IntersectionObserver supported');
+    } else {
+        console.warn('About section: IntersectionObserver not supported, falling back to scroll events');
+        
+        // Fallback for older browsers
+        window.addEventListener('scroll', aboutHandleScrollFallback);
+    }
+
+    function aboutHandleScrollFallback() {
+        const aboutSectionTop = aboutSection.offsetTop;
+        const aboutSectionHeight = aboutSection.offsetHeight;
+        const scrollTop = window.pageYOffset;
+        const windowHeight = window.innerHeight;
+
+        if (scrollTop + windowHeight > aboutSectionTop && 
+            scrollTop < aboutSectionTop + aboutSectionHeight) {
+            aboutSection.classList.add('about-animate-in');
+            
+            // Animate counters
+            aboutStatNumbers.forEach(stat => {
+                if (!stat.classList.contains('about-animated')) {
+                    stat.classList.add('about-animated');
+                    aboutAnimateCounter(stat);
+                }
+            });
+        }
+    }
+
+    /**
+     * About initialization complete
+     */
+    console.log('About section initialized successfully');
+});
+
+/* ======================================
+   END ABOUT SECTION JAVASCRIPT
+   ====================================== */

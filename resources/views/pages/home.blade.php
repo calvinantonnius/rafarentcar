@@ -3,6 +3,7 @@
 @section('title', 'RafaRentCar - Rental Mobil Terbaik')
 @section('content')
 
+
     <!-- Hero Section with Auto Slide Banner -->
     <section id="beranda" class="relative min-h-screen overflow-hidden">
         <!-- Banner Slider Container -->
