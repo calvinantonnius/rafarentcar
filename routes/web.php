@@ -11,8 +11,8 @@ Route::get('/tentang', function () {
 })->name('tentang');
 
 Route::get('/mobil', function () {
-    return view('pages.mobil');
-})->name('mobil');
+    return view('pages.car-list');
+})->name('car-list');
 
 Route::get('/syarat', function () {
     return view('pages.syarat');

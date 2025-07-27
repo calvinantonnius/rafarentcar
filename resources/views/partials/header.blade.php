@@ -17,7 +17,7 @@
             <div class="hidden md:flex items-center space-x-8">
                 <a href="/" class="text-blue-600 font-medium border-b-2 border-blue-600 pb-1">Beranda</a>
                 <a href="/tentang" class="text-gray-700 hover:text-blue-600 transition duration-300">Tentang</a>
-                <a href="#mobil" class="text-gray-700 hover:text-blue-600 transition duration-300">Daftar Mobil</a>
+                <a href="/mobil" class="text-gray-700 hover:text-blue-600 transition duration-300">Daftar Mobil</a>
                 <a href="#syarat" class="text-gray-700 hover:text-blue-600 transition duration-300">Syarat & Ketentuan</a>
                 <a href="#kontak" class="text-gray-700 hover:text-blue-600 transition duration-300">Kontak</a>
             </div>
