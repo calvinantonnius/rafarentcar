@@ -1,4 +1,4 @@
-<!-- Premium Header -->
+<!-- Premium Header -->aaaa
 <header class="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md shadow-lg border-b border-gray-100">
     <nav class="container mx-auto px-4 lg:px-8">
         <!-- Top Bar -->
