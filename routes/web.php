@@ -22,3 +22,7 @@ Route::get('/kontak', function () {
     return view('pages.kontak');
 })->name('kontak');
 
+Route::get('/detail', function () {
+    return view('pages.detail');
+})->name('detail');
+
